@@ -11,7 +11,7 @@ from slackoff.messagequeue import subscribe_to
 from slackoff.messagebuilder.attachments import Attachment, Attachments
 
 
-jenkinsUrl = "http://intdev1201:8080/"
+jenkinsUrl = "http://localhost:8080/"
 j = None
 
 try:
@@ -60,7 +60,7 @@ def list_views(message):
     client = message.get_client()
     views = get_views_attachments()
     logging.debug(views)
-    client.api_call("chat.postMessage", parse="full", as_user=True, channel=message.channel, text="", attachments=views)
+    client.send_message(channel=message.channel, attachments=views)
 
 def get_views_list():
     """
