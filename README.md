@@ -49,3 +49,5 @@ def subscribe_to_every_presence_change(presence_change):
 Plugins can be added to the plugins folder. Update settings.py with the plugin name to load the plugin on startup.
 
 see example plugin at /slackoff/plugins/jenkins.py
+
+![alt slack](http://mulaosmanovic.com/slackjenkins.png)
