@@ -35,13 +35,13 @@ def subscribe_to_every_message(message):
 
 # called when a user is typing  
 @subscribe_to(UserTyping)
-def subscribe_to_every_message(user_typing):
+def subscribe_to_every_user_typing(user_typing):
     client = user_typing.get_client()
     client.send_message(user_typing.channel, text="I see you typing")
 
-# called when a user is typing  
+# called when a users presence changes
 @subscribe_to(PresenceChange)
-def subscribe_to_every_message(presence_change):
+def subscribe_to_every_presence_change(presence_change):
     if presence_change.presence == "active":
         client = presence_change.get_client()
         client.send_message(presence_change.user, text="Welcome Back!")

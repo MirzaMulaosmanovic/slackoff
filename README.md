@@ -36,9 +36,9 @@ def subscribe_to_every_message(message):
         client.send_message(message.channel, text=str(date.today()))
 
 
-# called when a users presence changes  
+# Called when a users presence changes
 @subscribe_to(PresenceChange)
-def subscribe_to_every_message(presence_change):
+def subscribe_to_every_presence_change(presence_change):
     if presence_change.presence == "active":
         client = presence_change.get_client()
         client.send_message(presence_change.user, text="Welcome Back!")
