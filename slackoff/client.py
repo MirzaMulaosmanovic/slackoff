@@ -26,7 +26,6 @@ class SlackOff(object):
         loader.load_plugins(settings)
 
         t = threadfactory.default_factory(target=self.__run_slack_client, name="SlackOff", as_daemon=as_daemon)
-        t.setDaemon(as_daemon)
         t.start()
 
     def send_message(self, channel, text="", attachments=None):
