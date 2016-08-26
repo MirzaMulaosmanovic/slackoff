@@ -1,4 +1,3 @@
-import logging
 import json
 import datetime
 import time
@@ -9,7 +8,6 @@ from jenkinsapi.view import View
 from slackoff.models.model import Message
 from slackoff.messagequeue import subscribe_to
 from slackoff.messagebuilder.attachments import Attachment, Attachments
-
 
 jenkinsUrl = "http://localhost:8080/"
 j = None
@@ -24,7 +22,6 @@ def list_jobs_for_view(message):
     """
     respond to "jobs" with a list of jobs for the given View
     """
-    logging.debug(message)
 
     # Dont reply to another bot
     if 'bot_id' in message.data:
@@ -36,7 +33,6 @@ def list_jobs_for_view(message):
     client = message.get_client()
     view = message.text.replace("jobs", "").strip()
     jobsAttachment = get_jobs_for_view_attachments(view)
-    logging.debug(jobsAttachment)
     if jobsAttachment is None:
         text = "Unknown View: " + view
         client.send_message(message.channel, text=text)
@@ -48,7 +44,6 @@ def list_views(message):
     """
     respond to "views" with of the current views in jenkins
     """
-    logging.debug(message)
 
     # Dont reply to another bot
     if 'bot_id' in message.data:
@@ -59,7 +54,6 @@ def list_views(message):
     
     client = message.get_client()
     views = get_views_attachments()
-    logging.debug(views)
     client.send_message(channel=message.channel, attachments=views)
 
 def get_views_list():
