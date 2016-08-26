@@ -35,7 +35,6 @@ class SlackOff(object):
         """
         Runs the SlackClient and adds each item from the RTM to the messagequeue
         """
-
         logging.debug("Starting SlackOff")
 
         # Get some info about the bot and add it to the messagequeue in the case
@@ -44,15 +43,20 @@ class SlackOff(object):
         messagequeue.send_message(botInfo)
 
         if self.client.rtm_connect():
-            while True:
-                data = self.client.rtm_read()
-                if data:
-                    logging.debug(data)
-                    model = factory.create_from(data, bot_info=botInfo, client=self)
-                    if model is not None:
-                        messagequeue.send_message(model)
-                    else:
-                        messagequeue.send_message(data)
-                time.sleep(1)
+            try:
+                while True:
+                    data = self.client.rtm_read()
+                    if data:
+                        logging.debug(data)
+                        model = factory.create_from(data, bot_info=botInfo, client=self)
+                        if model is not None:
+                            messagequeue.send_message(model)
+                        else:
+                            messagequeue.send_message(data)
+                    time.sleep(1)
+            except Exception as ex:
+                logging.error(ex)
+                time.sleep(2)
+                self.__run_slack_client()
         else:
             logging.error("Connection Failed, invalid token?")
