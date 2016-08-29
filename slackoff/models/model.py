@@ -28,6 +28,9 @@ class BaseSlackModel(object):
         """
         return self.client
 
+    def __str__(self):
+        return str(self.data)
+
 class FileShared(BaseSlackModel):
     def __init__(self, data, bot_info, client):
         super(Message, self).__init__(data, bot_info=bot_info, client=client)

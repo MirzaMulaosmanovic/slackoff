@@ -1,3 +1,4 @@
+import logging
 from rx.subjects import Subject
 from rx.concurrency import NewThreadScheduler
 from slackoff import threadfactory
@@ -46,4 +47,5 @@ def send_message(data):
     send_message("Hello World!")
     """
     if data is not None:
+        logging.debug(data)
         queue.on_next(data)

@@ -5,6 +5,7 @@ from slackoff import messagequeue
 from slackoff import threadfactory
 from slackoff import settings
 from .models import factory
+from .models.model import ReconnectUrl
 from .plugins import loader
 
 class SlackOff(object):
@@ -47,10 +48,10 @@ class SlackOff(object):
                 while True:
                     data = self.client.rtm_read()
                     if data:
-                        logging.debug(data)
                         model = factory.create_from(data, bot_info=botInfo, client=self)
                         if model is not None:
-                            messagequeue.send_message(model)
+                            if type(model) is not ReconnectUrl:
+                                messagequeue.send_message(model)
                         else:
                             messagequeue.send_message(data)
                     time.sleep(1)
